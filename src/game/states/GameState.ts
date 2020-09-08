@@ -1,0 +1,107 @@
+import {
+  State,
+  Graphics,
+  Sprite,
+  Tile,
+  Animation,
+  SpriteSheet,
+} from '2djs'
+import LoadingState from './LoadingState'
+
+class GameState extends State {
+  blockX!: number
+  blockY!: number
+  blockVelocity!: number;
+  sprite!: Sprite
+  tile!: Tile
+
+  canUpdate = false
+  canRender = false
+  animation!: Animation;
+  spritesheet!: SpriteSheet;
+  // level?: string;
+
+  async start() {
+    this.blockX = 100
+    this.blockY = 100
+    this.blockVelocity = 100
+
+    // this.layers.add('background1', new BackgroundLayer))
+
+    const image = await this.loader.loadImage('game/images/test.jpg')
+
+    this.sprite = new Sprite(image)
+    this.tile = new Tile(image)
+
+    setTimeout(() => {
+      this.canUpdate = true
+      this.canRender = true
+    }, 1000)
+
+    const image2 = await this.loader.loadImage('game/images/mario.jpg')
+
+    this.animation = new Animation([
+      { frame: this.sprite, speed: 100 },
+      { frame: image2, speed: 2000 },
+    ], true)
+
+    this.spritesheet = new SpriteSheet(image)
+    this.spritesheet.defineSprite('primeiro', 0, 0, 100, 100)
+    this.spritesheet.defineSprite('segundo', 200, 200, 20, 20)
+    this.spritesheet.defineTile(0, 100, 100, 20, 20)
+
+    this.spritesheet.defineAnimation('test', [
+      {
+        frame: 'primeiro',
+        speed: 500
+      },
+      {
+        frame: 'segundo',
+        speed: 500
+      }
+    ], true)
+
+    // this.layers.add(new BackgroundLayer())
+  }
+
+  update(dt: number) {
+    if (this.input.get('KeyA')) {
+      this.blockX -= this.blockVelocity * dt
+    }
+
+    if (this.input.get('KeyD')) {
+      this.changeToState(new LoadingState(), {
+        nextLevel: '2'
+      })
+    }
+  }
+
+  render(g: Graphics) {
+    g.drawSprite(this.sprite, 0, 0, 100, 100)
+    g.drawTile(this.tile, 100, 0, 100, 100)
+
+    // g.drawAnimation(this.animation, 200, 0, 100, 100)
+
+    g.drawRect(this.blockX, this.blockY, 100, 100, '#550000')
+
+    this.spritesheet.drawSprite(g, 'primeiro', 500, 0)
+    this.spritesheet.drawTile(g, 0, 400, 0)
+    // this.spritesheet.drawAnimation(g, 'test', 400, 400)
+    g.drawAnimation(<Animation>this.spritesheet.animations.get('test'), 400, 400)
+
+    // g.drawSprite
+    // g.drawTile
+    // g.drawImage
+    // g.drawRect
+    // g.drawTriangle
+
+    // Advanced ----
+    // g.light.render('simple-light')
+
+    // this.layers.renderAll()
+    // this.layer[0].render()
+    // this.layer['background'].render()
+  }
+}
+
+export default GameState
