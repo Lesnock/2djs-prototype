@@ -14,18 +14,22 @@ class GameState extends State {
   blockVelocity!: number;
   sprite!: Sprite
   tile!: Tile
+  bgLayer!: number
+  animation!: Animation;
+  spritesheet!: SpriteSheet;
 
   canUpdate = false
   canRender = false
-  animation!: Animation;
-  spritesheet!: SpriteSheet;
-  // level?: string;
 
   async start() {
+    setTimeout(() => {
+      this.canUpdate = true
+      this.canRender = true
+    }, 1000)
+
     this.blockX = 100
     this.blockY = 100
     this.blockVelocity = 100
-
     // this.layers.add('background1', new BackgroundLayer))
 
     const image = await this.loader.loadImage('game/images/test.jpg')
@@ -33,16 +37,12 @@ class GameState extends State {
     this.sprite = new Sprite(image)
     this.tile = new Tile(image)
 
-    setTimeout(() => {
-      this.canUpdate = true
-      this.canRender = true
-    }, 1000)
-
     const image2 = await this.loader.loadImage('game/images/mario.jpg')
+    const image3 = await this.loader.loadImage('game/images/mario.png')
 
     this.animation = new Animation([
-      { frame: this.sprite, speed: 100 },
-      { frame: image2, speed: 2000 },
+      { frame: this.sprite, speed: 500 },
+      { frame: image2, speed: 500 },
     ], true)
 
     this.spritesheet = new SpriteSheet(image)
@@ -61,7 +61,13 @@ class GameState extends State {
       }
     ], true)
 
-    // this.layers.add(new BackgroundLayer())
+    // Layer 0 - Background
+    this.layers.add({ isVisible: true })
+
+    // Layer 1 - Foreground
+    this.layers.add({ isVisible: true, transparency: 1 })
+
+    // this.layers.get(0).canRender = false
   }
 
   update(dt: number) {
@@ -77,17 +83,24 @@ class GameState extends State {
   }
 
   render(g: Graphics) {
-    g.drawSprite(this.sprite, 0, 0, 100, 100)
-    g.drawTile(this.tile, 100, 0, 100, 100)
+    // g.drawSprite(this.sprite, 0, 0, 100, 100)
+    // g.drawTile(this.tile, 100, 0, 100, 100)
 
     // g.drawAnimation(this.animation, 200, 0, 100, 100)
 
-    g.drawRect(this.blockX, this.blockY, 100, 100, '#550000')
+    this.onLayer(1).drawRect(this.blockX, this.blockY, 100, 100, '#550000')
 
-    this.spritesheet.drawSprite(g, 'primeiro', 500, 0)
-    this.spritesheet.drawTile(g, 0, 400, 0)
-    // this.spritesheet.drawAnimation(g, 'test', 400, 400)
-    g.drawAnimation(<Animation>this.spritesheet.animations.get('test'), 400, 400)
+    // this.spritesheet.drawSprite(g, 'primeiro', 500, 0)
+    // this.spritesheet.drawTile(g, 0, 400, 0)
+    // // this.spritesheet.drawAnimation(g, 'test', 400, 400)
+    // g.drawAnimation(<Animation>this.spritesheet.animations.get('test'), 400, 400)
+
+    this.onLayer(0).drawRect(0, 0, 300, 800, '#555500')
+    this.onLayer(0).drawSprite(this.sprite, 0, 0)
+    this.onLayer(1).drawRect(0, 0, 300, 300, '#0000FF')
+
+    // this.onLayer(1).drawRect()
+    // this.layers.get(1).g.drawRect
 
     // g.drawSprite
     // g.drawTile
