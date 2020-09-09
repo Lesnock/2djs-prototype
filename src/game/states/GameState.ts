@@ -88,8 +88,9 @@ class GameState extends State {
 
     // g.layer()
 
-    this.onLayer(0).drawRect(0, 0, 300, 800, '#550000')
-    this.onLayer(0).drawSprite(this.sprite, 100, 0)
+    this.onLayer(0).drawSprite(this.sprite, 0, 0, 800, 600)
+    this.onLayer(0).drawRect(200, 0, 200, 400, '#000055', .5)
+    this.onLayer(0).drawRect(0, 0, 300, 800, '#FF0000', .1)
     // this.onLayer(1).drawRect(0, 0, 300, 300, '#0000FF')
     // this.onLayer(1).drawRect(this.blockX, this.blockY, 100, 100, '#550000')
 

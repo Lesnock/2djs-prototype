@@ -1,4 +1,6 @@
 {
+  "name": "2djs-prototype",
+  "description": "A prototype app for 2DJS Game Engine",
   "scripts": {
     "dev": "webpack --watch"
   },
