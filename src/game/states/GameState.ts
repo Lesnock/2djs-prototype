@@ -14,9 +14,12 @@ class GameState extends State {
   blockVelocity!: number;
   sprite!: Sprite
   tile!: Tile
-  bgLayer!: number
   animation!: Animation;
   spritesheet!: SpriteSheet;
+
+  // Layers
+  bgLayer!: number
+  fgLayer!: number
 
   async start() {
 
@@ -57,10 +60,10 @@ class GameState extends State {
     // ], true)
 
     // Layer 0 - Background
-    this.layers.add()
+    this.bgLayer = this.layers.add()
 
     // Layer 1 - Foreground
-    // this.layers.add({ opacity: .5 })
+    this.fgLayer = this.layers.add(/*{ opacity: .5 }*/)
   }
 
   update(dt: number) {
@@ -87,10 +90,11 @@ class GameState extends State {
     // g.drawAnimation(<Animation>this.spritesheet.animations.get('test'), 400, 400)
 
     // g.layer()
+    g.on(this.fgLayer).drawRect(0, 0, 800, 200)
 
     this.onLayer(0).drawSprite(this.sprite, 0, 0, 800, 600)
-    this.onLayer(0).drawRect(200, 0, 200, 400, '#000055', .5)
-    this.onLayer(0).drawRect(0, 0, 300, 800, '#FF0000', .1)
+    this.onLayer(0).drawRect(200, 0, 200, 400, '#0000FF')
+    this.onLayer(0).drawRect(0, 0, 300, 800, '#FF0000', .2)
     // this.onLayer(1).drawRect(0, 0, 300, 300, '#0000FF')
     // this.onLayer(1).drawRect(this.blockX, this.blockY, 100, 100, '#550000')
 
