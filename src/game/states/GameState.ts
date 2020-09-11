@@ -28,7 +28,7 @@ class GameState extends State {
     this.blockVelocity = 100
     // this.layers.add('background1', new BackgroundLayer))
 
-    const image = await this.loader.loadImage('game/images/test.jpg')
+    const image = await this.loader.loadImage('game/images/mario4k.jpg')
 
     this.sprite = new Sprite(image, {
       opacity: .5
@@ -64,14 +64,18 @@ class GameState extends State {
 
     // Layer 1 - Foreground
     this.fgLayer = this.layers.add(/*{ opacity: .5 }*/)
+
+    this.input.mouse.onScrollDown(() => {
+      console.log('scrolling down')
+    })
   }
 
   update(dt: number) {
-    if (this.input.get('KeyA')) {
+    if (this.input.keyboard.get('KeyA')) {
       this.blockX -= this.blockVelocity * dt
     }
 
-    if (this.input.get('KeyD')) {
+    if (this.input.keyboard.get('KeyD')) {
       this.changeState(new LoadingState(), {
         nextLevel: '2'
       })
@@ -92,7 +96,7 @@ class GameState extends State {
     // g.layer()
     g.on(this.fgLayer).drawRect(0, 0, 800, 200)
 
-    this.onLayer(0).drawSprite(this.sprite, 0, 0, 800, 600)
+    this.onLayer(0).drawSprite(this.sprite, 0, 0)
     this.onLayer(0).drawRect(200, 0, 200, 400, '#0000FF')
     this.onLayer(0).drawRect(0, 0, 300, 800, '#FF0000', .2)
     // this.onLayer(1).drawRect(0, 0, 300, 300, '#0000FF')
