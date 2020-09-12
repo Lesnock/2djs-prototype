@@ -5,6 +5,7 @@ import {
   Tile,
   Animation,
   SpriteSheet,
+  Tileset
 } from '2djs'
 import LoadingState from './LoadingState'
 
@@ -68,6 +69,49 @@ class GameState extends State {
     this.input.mouse.onScrollDown(() => {
       console.log('scrolling down')
     })
+
+    // const tileset = new Tileset('game/images/tiles/test.png', 32, 32, 10, 10)
+    const tileset = new Tileset('game/images/tileset16.png', 16, 16, 9, 9)
+
+    // this.loader.loadTileset('tilesets/world1.tset')
+    // -> image: images/tiles/test.png
+    // mapWidth: 10
+    // mapHeight: 10
+    // tileWidth: 32
+    // tileHeight: 32
+    // regular: false
+    // map: [
+    //   [ 0, 0, 32, 32 ],
+    //   [ 0, 0, 32, 32 ],
+    //   [ 0, 0, 32, 32 ],
+    //   [ 0, 0, 32, 32 ]
+    // ]
+
+    //tileset.tiles[0].draw()
+    // MAPS:
+    // ---
+    // rows: 4
+    // columns: 5
+    // 00 01 01 01 01
+    // 02 02 02 02 03
+    // 02 02 02 02 03
+    // 001 002 004 002
+
+    // ---
+    // rows: 5
+    // columns: 5
+    // 00 01 01 01 01
+    // 02 02 02 02 03
+    // 02 02 02 02 03
+    // 001 002 004 002
+    // 001 002 004 002
+
+    // [0] = Tile({ x: 0, y: 0, width: 32, height: 32 })
+    // [1] = Tile({ x: 32, y: 0, width: 32, height: 32 })
+
+    // const tilemap = new TileMap(tileset)
+    // const tilemap = this.loader.loadTileMap('tilemaps/level1.tmap')
+    // tilemap.drawOnlyOfType(01)
   }
 
   update(dt: number) {
