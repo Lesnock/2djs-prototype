@@ -29,15 +29,15 @@ class GameState extends State {
     this.blockVelocity = 100
     // this.layers.add('background1', new BackgroundLayer))
 
-    const image = await this.loader.loadImage('game/images/mario4k.jpg')
+    const image = await this.loader.loadImage('images/mario4k.jpg')
 
     this.sprite = new Sprite(image, {
       opacity: .5
     })
     // this.tile = new Tile(image)
 
-    // const image2 = await this.loader.loadImage('game/images/mario.jpg')
-    // const image3 = await this.loader.loadImage('game/images/mario.png')
+    // const image2 = await this.loader.loadImage('images/mario.jpg')
+    // const image3 = await this.loader.loadImage('images/mario.png')
 
     // this.animation = new Animation([
     //   { frame: this.sprite, speed: 500 },
@@ -70,8 +70,10 @@ class GameState extends State {
       console.log('scrolling down')
     })
 
-    // const tileset = new Tileset('game/images/tiles/test.png', 32, 32, 10, 10)
-    const tileset = new Tileset('game/images/tileset16.png', 16, 16, 9, 9)
+    // const tileset = new Tileset('images/tiles/test.png', 32, 32, 10, 10)
+    const tileset = new Tileset('images/tileset16.png', 16, 16, 9, 9)
+
+    // const tilemap = new TileMap(tileset)
 
     // this.loader.loadTileset('tilesets/world1.tset')
     // -> image: images/tiles/test.png
