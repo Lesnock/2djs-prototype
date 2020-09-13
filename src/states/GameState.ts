@@ -77,20 +77,28 @@ class GameState extends State {
     // const tileset = new Tileset('images/tiles/test.png', 32, 32, 10, 10)
     this.tileset = new Tileset(tilesetImage, 16, 16, 1, 3)
 
-    const map = [
-      1, 1, 1, 1, 1, 1,
-      0, 0, 0, 0, 0, 0,
-      1, 1, 2, 2, 2, 2,
+    const mapLayers = [
+      {
+        rows: 3,
+        columns: 3,
+        map: [
+          1, 1, 1, 1, 1, 1,
+          0, 0, 0, 0, 0, 0,
+          1, 1, 2, 2, 2, 2,
+        ]
+      }
     ]
 
-    this.tilemap = new Tilemap(this.tileset, map, 3, 6)
+    // this.tilemap = new Tilemap(this.tileset, mapLayers)
 
-    this.tile = new Tile(tilesetImage, {
-      x: 0,
-      y: 0,
-      width: 16,
-      height: 16
-    })
+    // this.tile = new Tile(tilesetImage, {
+    //   x: 0,
+    //   y: 0,
+    //   width: 16,
+    //   height: 16
+    // })
+
+    this.tilemap = await this.loader.loadTilemap('tilemaps/level1.json', this.tileset)
 
     // const tilemap = new TileMap(tileset)
 
