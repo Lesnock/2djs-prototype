@@ -5,7 +5,8 @@ import {
   Tile,
   Animation,
   SpriteSheet,
-  Tileset
+  Tileset,
+  Tilemap
 } from '2djs'
 import LoadingState from './LoadingState'
 
@@ -17,6 +18,8 @@ class GameState extends State {
   tile!: Tile
   animation!: Animation;
   spritesheet!: SpriteSheet;
+  tileset!: Tileset;
+  tilemap!: Tilemap;
 
   // Layers
   bgLayer!: number
@@ -30,6 +33,7 @@ class GameState extends State {
     // this.layers.add('background1', new BackgroundLayer))
 
     const image = await this.loader.loadImage('images/mario4k.jpg')
+    const tilesetImage = await this.loader.loadImage('images/tiles.png')
 
     this.sprite = new Sprite(image, {
       opacity: .5
@@ -71,9 +75,29 @@ class GameState extends State {
     })
 
     // const tileset = new Tileset('images/tiles/test.png', 32, 32, 10, 10)
-    const tileset = new Tileset('images/tileset16.png', 16, 16, 9, 9)
+    this.tileset = new Tileset(tilesetImage, 16, 16, 1, 3)
+
+    const map = [
+      1, 1, 1, 1, 1, 1,
+      0, 0, 0, 0, 0, 0,
+      1, 1, 2, 2, 2, 2,
+    ]
+
+    this.tilemap = new Tilemap(this.tileset, map, 3, 6)
+
+    this.tile = new Tile(tilesetImage, {
+      x: 0,
+      y: 0,
+      width: 16,
+      height: 16
+    })
 
     // const tilemap = new TileMap(tileset)
+
+    // const tilemap = new TileMap({
+    //   0: this.tile
+    // })
+
 
     // this.loader.loadTileset('tilesets/world1.tset')
     // -> image: images/tiles/test.png
@@ -129,6 +153,15 @@ class GameState extends State {
   }
 
   async render(g: Graphics) {
+    g.drawRect(0, 0, this.display.width, this.display.height, '#000')
+    this.tilemap.draw(g)
+
+    // g.drawTile(this.tileset.getTile(1), 0, 0)
+    // g.drawTile(this.tileset.getTile(0), 16, 0)
+    // g.drawTile(this.tileset.getTile(2), 32, 0)
+
+
+
     // g.drawSprite(this.sprite, 0, 0, 100, 100)
     // g.drawTile(this.tile, 100, 0, 100, 100)
 
@@ -140,11 +173,12 @@ class GameState extends State {
     // g.drawAnimation(<Animation>this.spritesheet.animations.get('test'), 400, 400)
 
     // g.layer()
-    g.on(this.fgLayer).drawRect(0, 0, 800, 200)
+    // g.on(this.fgLayer).drawTile(this.tile, 0, 0)
+    // g.on(this.fgLayer).drawRect(0, 0, 800, 200)
 
-    this.onLayer(0).drawSprite(this.sprite, 0, 0)
-    this.onLayer(0).drawRect(200, 0, 200, 400, '#0000FF')
-    this.onLayer(0).drawRect(0, 0, 300, 800, '#FF0000', .2)
+    // this.onLayer(0).drawSprite(this.sprite, 0, 0)
+    // this.onLayer(0).drawRect(200, 0, 200, 400, '#0000FF')
+    // this.onLayer(0).drawRect(0, 0, 300, 800, '#FF0000', .2)
     // this.onLayer(1).drawRect(0, 0, 300, 300, '#0000FF')
     // this.onLayer(1).drawRect(this.blockX, this.blockY, 100, 100, '#550000')
 

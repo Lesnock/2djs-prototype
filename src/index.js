@@ -3,8 +3,8 @@ import GameState from './states/GameState.ts'
 
 const game = new Game({
   title: 'My Game',
-  width: 800,
-  height: 600,
+  width: 256,
+  height: 240,
   fps: 60
 })
 
