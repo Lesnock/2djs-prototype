@@ -6,8 +6,9 @@ import {
   Animation,
   SpriteSheet,
   Tileset,
-  Tilemap
+  Tilemap, GameObject
 } from '2djs'
+import Char from '../gameobjects/Char';
 import LoadingState from './LoadingState'
 
 class GameState extends State {
@@ -24,6 +25,10 @@ class GameState extends State {
   // Layers
   bgLayer!: number
   fgLayer!: number
+  goLayer!: number
+
+  // gameObjects
+  char!: GameObject
 
   async start() {
 
@@ -65,10 +70,13 @@ class GameState extends State {
     // ], true)
 
     // Layer 0 - Background
-    this.bgLayer = this.layers.add()
+    this.bgLayer = this.layers.add({ name: 'bgLayer' })
 
     // Layer 1 - Foreground
-    this.fgLayer = this.layers.add(/*{ opacity: .5 }*/)
+    this.fgLayer = this.layers.add({ name: 'fgLayer' })
+
+    // Layer 2 - Game Objects
+    this.goLayer = this.layers.add({ name: 'goLayer' })
 
     this.input.mouse.onScrollDown(() => {
       console.log('scrolling down')
@@ -169,6 +177,9 @@ class GameState extends State {
     // const tilemap = new TileMap(tileset)
     // const tilemap = this.loader.loadTileMap('tilemaps/level1.tmap')
     // tilemap.drawOnlyOfType(01)
+
+    // Game Objects
+    this.char = this.addGameObject(new Char())
   }
 
   update(dt: number) {
@@ -185,7 +196,7 @@ class GameState extends State {
 
   async render(g: Graphics) {
     g.drawRect(0, 0, this.display.width, this.display.height, '#000')
-    this.tilemap.draw(g)
+    g.on('fgLayer').drawTilemap(this.tilemap)
 
     // g.drawTile(this.tileset.getTile(1), 0, 0)
     // g.drawTile(this.tileset.getTile(0), 16, 0)
