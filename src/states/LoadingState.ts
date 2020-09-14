@@ -11,10 +11,6 @@ class LoadingState extends State {
   }
 
   async loadAssets() {
-    const image = await this.loader.loadImage('game/images/test.jpg')
-    const image2 = await this.loader.loadImage('game/images/mario.jpg')
-    const image3 = await this.loader.loadImage('game/images/mario.png')
-
     await new Promise(resolve => {
       setTimeout(resolve, 5000)
     })

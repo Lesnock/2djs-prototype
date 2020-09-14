@@ -75,21 +75,44 @@ class GameState extends State {
     })
 
     // const tileset = new Tileset('images/tiles/test.png', 32, 32, 10, 10)
-    this.tileset = new Tileset(tilesetImage, 16, 16, 1, 3)
+    // this.tileset = new Tileset(tilesetImage, 16, 16, 1, 3)
+    // this.tileset = Tileset.fromArray(tilesetImage, 16, 16, [
+    //   { x: 0, y: 0, width: 16, height: 16 },
+    //   { x: 16, y: 0, width: 16, height: 16 },
+    //   { x: 32, y: 0, width: 16, height: 16 },
+    // ])
+
+    this.tileset = Tileset.fromObject(tilesetImage, 16, 16, [
+      { x: 0, y: 0, width: 16, height: 16 },
+      { x: 16, y: 0, width: 16, height: 16 },
+      { x: 32, y: 0, width: 16, height: 16 },
+    ])
 
     const mapLayers = [
       {
-        rows: 3,
-        columns: 3,
+        rows: 15,
+        columns: 18,
         map: [
-          1, 1, 1, 1, 1, 1,
-          0, 0, 0, 0, 0, 0,
-          1, 1, 2, 2, 2, 2,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+          1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2,
         ]
       }
     ]
 
-    // this.tilemap = new Tilemap(this.tileset, mapLayers)
+    // this.tilemap = new Tilemap(mapLayers, this.tileset)
 
     // this.tile = new Tile(tilesetImage, {
     //   x: 0,
